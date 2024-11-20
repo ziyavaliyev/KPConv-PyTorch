@@ -1,56 +1,19 @@
+### Computer Vision Group - RWTH
 
-# Installation instructions
+1. S3DIS dataset can be downloaded <a href="https://goo.gl/forms/4SoGp4KtH1jfRqEj2">here (4.8 GB)</a>. 
+Download the file named `Stanford3dDataset_v1.2.zip`, uncompress the data and move it to `../../Data/S3DIS`. If you want to place your data anywhere else, you just have to change the variable 
+`self.path` of `S3DISDataset` class ([here](https://github.com/HuguesTHOMAS/KPConv-PyTorch/blob/afa18c92f00c6ed771b61cb08b285d2f93446ea4/datasets/S3DIS.py#L88)).
 
-## Ubuntu 18.04
+2. Create a virtual environment and activate it:
+
+        virtualenv .venv
+        source .venv/bin/activate
+
+3. Install the dependencies:
      
-* Make sure <a href="https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html">CUDA</a>  and <a href="https://docs.nvidia.com/deeplearning/sdk/cudnn-install/index.html">cuDNN</a> are installed. One configuration has been tested: 
-     - PyTorch 1.4.0, CUDA 10.1 and cuDNN 7.6
-     
-* Ensure all python packages are installed :
+        pip install -r requirements.txt
 
-          sudo apt update
-          sudo apt install python3-dev python3-pip python3-tk
+4. Compile the CPP wrappers:
 
-* Follow <a href="https://pytorch.org/get-started/locally/">PyTorch installation procedure</a>.
-
-* Install the other dependencies with pip:
-     - numpy
-     - scikit-learn
-     - PyYAML
-     - matplotlib (for visualization)
-     - mayavi (for visualization)
-     - PyQt5 (for visualization)
-     
-* Compile the C++ extension modules for python located in `cpp_wrappers`. Open a terminal in this folder, and run:
-
-          sh compile_wrappers.sh
-
-You should now be able to train Kernel-Point Convolution models
-
-## Windows 10
-     
-* Make sure <a href="https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html">CUDA</a>  and <a href="https://docs.nvidia.com/deeplearning/sdk/cudnn-install/index.html">cuDNN</a> are installed. One configuration has been tested: 
-     - PyTorch 1.4.0, CUDA 10.1 and cuDNN 7.5
-     
-* Follow <a href="https://pytorch.org/get-started/locally/">PyTorch installation procedure</a>.
-     
-* We used the PyCharm IDE to pip install all python dependencies (including PyTorch) in a venv:
-     - torch
-     - torchvision
-     - numpy
-     - scikit-learn
-     - PyYAML
-     - matplotlib (for visualization)
-     - mayavi (for visualization)
-     - PyQt5 (for visualization)
-     
-* Compile the C++ extension modules for python located in `cpp_wrappers`. You just have to execute two .bat files:
-
-        cpp_wrappers/cpp_neighbors/build.bat
-        
-  and
-        
-        cpp_wrappers/cpp_subsampling/build.bat
-        
-You should now be able to train Kernel-Point Convolution models
-
+        cd cpp_wrappers
+        bash compile_wrappers.sh
