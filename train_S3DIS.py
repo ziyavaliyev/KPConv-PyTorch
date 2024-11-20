@@ -24,6 +24,7 @@
 # Common libs
 import signal
 import os
+import wandb
 
 # Dataset
 from datasets.S3DIS import *
@@ -212,6 +213,10 @@ class S3DISConfig(Config):
 #
 
 if __name__ == '__main__':
+
+    wandb.login()
+    wandb.init(project='kpconv_rwth', entity='ziyavaliyev-rwth-aachen-university-org')
+    print('Wandb initialized')
 
     ############################
     # Initialize the environment
