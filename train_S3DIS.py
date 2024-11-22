@@ -24,6 +24,8 @@
 # Common libs
 import signal
 import os
+import wandb
+from datetime import datetime
 
 # Dataset
 from datasets.S3DIS import *
@@ -216,7 +218,7 @@ if __name__ == '__main__':
     ############################
     # Initialize the environment
     ############################
-
+    wandb.login()
     # Set which gpu is going to be used
     GPU_ID = '0'
 

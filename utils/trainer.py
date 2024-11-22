@@ -32,6 +32,7 @@ from os import makedirs, remove
 from os.path import exists, join
 import time
 import sys
+from datetime import datetime
 
 # PLY reader
 from utils.ply import read_ply, write_ply
@@ -40,6 +41,8 @@ from utils.ply import read_ply, write_ply
 from utils.metrics import IoU_from_confusions, fast_confusion
 from utils.config import Config
 from sklearn.neighbors import KDTree
+
+import wandb
 
 from models.blocks import KPConv
 
@@ -132,7 +135,11 @@ class ModelTrainer:
         ################
 
         if config.saving:
+            cd = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+            config_dict = {attribute: str(getattr(config, attribute)) for attribute in dir(config)}
+            wandb.init(project='kpconv_rwth', entity='rwth-cv', name=cd, config=config_dict)
             # Training log file
+
             with open(join(config.saving_path, 'training.txt'), "w") as file:
                 file.write('epochs steps out_loss offset_loss train_accuracy time\n')
 
@@ -232,6 +239,7 @@ class ModelTrainer:
                                                   net.reg_loss,
                                                   acc,
                                                   t[-1] - t0))
+                        wandb.log({'epoch' : self.epoch, 'loss': net.output_loss, 'accuracy': acc, 'time': t[-1] - t0})
 
 
                 self.step += 1
@@ -601,6 +609,7 @@ class ModelTrainer:
         # Print instance mean
         mIoU = 100 * np.mean(IoUs)
         print('{:s} mean IoU = {:.1f}%'.format(config.dataset, mIoU))
+        wandb.log({'mIoU': mIoU})
 
         # Save predicted cloud occasionally
         if config.saving and (self.epoch + 1) % config.checkpoint_gap == 0:
