@@ -17,3 +17,5 @@ Download the file named `Stanford3dDataset_v1.2.zip`, uncompress the data and mo
 
         cd cpp_wrappers
         bash compile_wrappers.sh
+
+Note: Right now only integrated for S3DIS dataset
