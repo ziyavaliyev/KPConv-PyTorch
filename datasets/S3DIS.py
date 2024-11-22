@@ -44,7 +44,7 @@ from utils.mayavi_visu import *
 from datasets.common import grid_subsampling
 from utils.config import bcolors
 
-#TODO: Slowly delete parts of the code
+#TODO:Slowly delete parts of the code
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
